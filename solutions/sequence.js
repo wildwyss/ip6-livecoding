@@ -1,0 +1,38 @@
+import * as _ from "../Kolibri/contrib/wild_wyss/src/sequence/sequence.js"
+
+const double = n => 2 * n;
+const isEven  = n => n % 2 === 0;
+
+const doubleAndLog = n => {
+  const result = double(n);
+  console.log(`The double of ${n} is ${result}`);
+  return result;
+};
+
+const isEvenAndLog  = n => {
+  const result = isEven(n);
+  console.log(`${n} is even: ${result}`);
+  return result;
+};
+
+// standard JS approach
+const numbers = [0,1,2,3,4,5,6,7,8,9,10];
+// console.log("Numbers", ...numbers);
+
+// const mapped = numbers
+//   .filter(isEvenAndLog)
+//   .map(doubleAndLog)
+//   .slice(0,2);
+//
+
+
+// sequence approach
+const sequence = _.Range(0,10);
+
+const mapped = sequence.pipe(
+  _.retainAll(isEvenAndLog),
+  _.map(doubleAndLog),
+  _.take(2)
+);
+
+console.log('mapped', ...mapped);
